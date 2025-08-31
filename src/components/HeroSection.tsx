@@ -232,7 +232,7 @@ export function HeroSection() {
             fill="url(#vinylTexture)"
             opacity="0.3"
           />
-        </motion.svg>
+                </motion.svg>
         
         {/* Play/Stop Controls Overlay */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -293,6 +293,7 @@ export function HeroSection() {
             ))}
           </div>
         )}
+        </motion.div>
         
         {/* Additional Glow Effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-yellow-400/5 to-transparent" />
