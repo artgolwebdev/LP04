@@ -113,8 +113,8 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Interactive Vinyl - Positioned to the right */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 pr-8 lg:pr-16 xl:pr-24">
+      {/* Interactive Vinyl - Positioned below buttons */}
+      <div className="absolute left-1/2 bottom-8 -translate-x-1/2 z-10">
         <motion.div
           className="relative cursor-pointer group"
           onClick={handleVinylClick}
@@ -123,7 +123,7 @@ export function HeroSection() {
         >
           {/* Vinyl SVG */}
           <motion.svg
-            className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 xl:w-[500px] xl:h-[500px]"
+            className="w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72"
             animate={{ rotate: isPlaying ? 360 : 0 }}
             transition={{ 
               duration: isPlaying ? 30 : 0, 
@@ -228,7 +228,7 @@ export function HeroSection() {
           </div>
 
           {/* Song Info Overlay */}
-          <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="flex items-center gap-3 text-white text-sm">
               <button
                 onClick={(e) => { e.stopPropagation(); handlePreviousSong(); }}
