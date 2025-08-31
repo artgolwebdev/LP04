@@ -30,7 +30,7 @@ export function BookingSection() {
   }
 
   return (
-    <section className="py-20 bg-black text-white">
+    <section id="booking-section" className="py-20 bg-black text-white">
       <div className="container mx-auto px-4">
         <motion.div
           className="max-w-4xl mx-auto"
