@@ -1,9 +1,57 @@
 import { motion } from 'motion/react'
 import { Button } from './ui/button'
 import { ImageWithFallback } from './figma/ImageWithFallback'
-import { Play, Music, Headphones, Disc3 } from 'lucide-react'
+import { Play, Music, Headphones, Disc3, Volume2, Pause } from 'lucide-react'
+import { useState, useRef } from 'react'
 
 export function HeroSection() {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentSong, setCurrentSong] = useState(0)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  
+  // Sample songs - you can replace with actual audio files
+  const songs = [
+    { title: "Hip-Hop Beat", url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" },
+    { title: "Electronic Mix", url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" },
+    { title: "Club Anthem", url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" }
+  ]
+
+  const handleVinylClick = () => {
+    if (isPlaying) {
+      // Stop current song
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.currentTime = 0
+      }
+      setIsPlaying(false)
+    } else {
+      // Play song
+      if (audioRef.current) {
+        audioRef.current.play()
+        setIsPlaying(true)
+      }
+    }
+  }
+
+  const handleNextSong = () => {
+    setCurrentSong((prev) => (prev + 1) % songs.length)
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0
+      if (isPlaying) {
+        audioRef.current.play()
+      }
+    }
+  }
+
+  const handlePreviousSong = () => {
+    setCurrentSong((prev) => (prev - 1 + songs.length) % songs.length)
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0
+      if (isPlaying) {
+        audioRef.current.play()
+      }
+    }
+  }
   const handleBookNowClick = () => {
     // Scroll to the booking section
     const bookingSection = document.getElementById('booking-section')
@@ -28,6 +76,13 @@ export function HeroSection() {
 
   return (
     <section className="relative h-screen overflow-hidden flex items-center justify-center">
+      {/* Hidden Audio Element */}
+      <audio
+        ref={audioRef}
+        src={songs[currentSong].url}
+        onEnded={() => setIsPlaying(false)}
+        onError={() => setIsPlaying(false)}
+      />
       {/* Parallax Background */}
       <motion.div
         className="absolute inset-0 z-0"
@@ -54,21 +109,27 @@ export function HeroSection() {
 
       {/* Huge Spinning Vinyl Background Animation */}
       <div className="absolute inset-0 z-5 overflow-hidden">
-        <motion.svg
-          className="absolute w-[800px] h-[800px] md:w-[1000px] md:h-[1000px] lg:w-[1200px] lg:h-[1200px] xl:w-[1400px] xl:h-[1400px]"
+        <motion.div
+          className="absolute w-[800px] h-[800px] md:w-[1000px] md:h-[1000px] lg:w-[1200px] lg:h-[1200px] xl:w-[1400px] xl:h-[1400px] cursor-pointer group"
           style={{
             left: '50%',
             top: '50%',
             transform: 'translate(-50%, -50%)'
           }}
-          animate={{ rotate: 360 }}
-          transition={{ 
-            duration: 30, 
-            repeat: Infinity, 
-            ease: "linear" 
-          }}
-          viewBox="0 0 200 200"
+          onClick={handleVinylClick}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
         >
+          <motion.svg
+            className="w-full h-full"
+            animate={{ rotate: isPlaying ? 360 : 0 }}
+            transition={{ 
+              duration: isPlaying ? 30 : 0, 
+              repeat: isPlaying ? Infinity : 0, 
+              ease: "linear" 
+            }}
+            viewBox="0 0 200 200"
+          >
           {/* Vinyl Base Circle */}
           <circle
             cx="100"
@@ -172,6 +233,66 @@ export function HeroSection() {
             opacity="0.3"
           />
         </motion.svg>
+        
+        {/* Play/Stop Controls Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="bg-black/80 backdrop-blur-md rounded-full p-6 md:p-8 border-2 border-white/20">
+            {isPlaying ? (
+              <Pause className="w-12 h-12 md:w-16 md:h-16 text-white" />
+            ) : (
+              <Play className="w-12 h-12 md:w-16 md:h-16 text-white" />
+            )}
+          </div>
+        </div>
+        
+        {/* Song Info Overlay */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="flex items-center gap-3 text-white text-sm">
+            <button
+              onClick={(e) => { e.stopPropagation(); handlePreviousSong(); }}
+              className="hover:text-yellow-400 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <span className="font-medium">{songs[currentSong].title}</span>
+            <button
+              onClick={(e) => { e.stopPropagation(); handleNextSong(); }}
+              className="hover:text-yellow-400 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        {/* Sound Waves when Playing */}
+        {isPlaying && (
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(8)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute inset-0 border border-yellow-400/30 rounded-full"
+                animate={{
+                  scale: [1, 2.5],
+                  opacity: [0.8, 0]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: i * 0.2
+                }}
+                style={{
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)'
+                }}
+              />
+            ))}
+          </div>
+        )}
         
         {/* Additional Glow Effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-yellow-400/5 to-transparent" />
