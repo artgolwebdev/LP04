@@ -506,7 +506,7 @@ export function HeroSection() {
               variant="outline"
               size="lg" 
               onClick={handleDiscoverMoreClick}
-              className="relative bg-gradient-to-r from-white/10 via-white/5 to-white/10 text-white hover:from-white/30 hover:via-white/15 hover:to-white/30 px-10 md:px-12 py-5 md:py-6 text-base md:text-lg rounded-full border-2 border-white/40 overflow-hidden group-hover:border-white/80 transition-all duration-500 backdrop-blur-md shadow-2xl hover:shadow-white/30 hover:shadow-2xl"
+              className="relative bg-gradient-to-r from-white/10 via-white/5 to-white/10 text-white hover:from-white/20 hover:via-white/10 hover:to-white/20 px-10 md:px-12 py-5 md:py-6 text-base md:text-lg rounded-full border-2 border-white/40 overflow-hidden group-hover:border-white/60 transition-all duration-500 backdrop-blur-md shadow-2xl hover:shadow-white/30 hover:shadow-2xl"
             >
               {/* Enhanced animated arrow icon */}
               <motion.div
