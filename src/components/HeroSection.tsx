@@ -363,11 +363,24 @@ export function HeroSection() {
               ))}
             </div>
             
-            <Button 
-              size="lg" 
-              onClick={handleBookNowClick}
-              className="relative bg-white text-black hover:bg-white/90 px-6 sm:px-8 md:px-12 py-4 md:py-6 text-base md:text-lg rounded-full border-4 border-white/20 overflow-hidden group-hover:border-white/40 transition-all duration-300"
+            <motion.div
+              whileHover={{ 
+                scale: 1.05,
+                y: -5,
+                rotateY: 5
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 400, 
+                damping: 25 
+              }}
             >
+              <Button 
+                size="lg" 
+                onClick={handleBookNowClick}
+                className="relative bg-white text-black hover:bg-white/90 px-6 sm:px-8 md:px-12 py-4 md:py-6 text-base md:text-lg rounded-full border-4 border-white/20 overflow-hidden group-hover:border-white/60 transition-all duration-300 shadow-2xl hover:shadow-white/30 hover:shadow-3xl"
+              >
               {/* Vinyl record spinning animation */}
               <motion.div
                 className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-6 h-6 md:w-8 md:h-8 rounded-full border-4 border-black/20 flex items-center justify-center"
@@ -419,6 +432,7 @@ export function HeroSection() {
                 }}
               />
             </Button>
+            </motion.div>
             
             {/* Floating music notes */}
             <div className="absolute inset-0 pointer-events-none">
@@ -457,8 +471,17 @@ export function HeroSection() {
         >
           <motion.div
             className="relative inline-block group"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ 
+              scale: 1.08,
+              y: -8,
+              rotateZ: 2
+            }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 300, 
+              damping: 20 
+            }}
           >
             {/* Pulsing background rings */}
             <div className="absolute inset-0 -m-4">
@@ -483,7 +506,7 @@ export function HeroSection() {
               variant="outline"
               size="lg" 
               onClick={handleDiscoverMoreClick}
-              className="relative bg-gradient-to-r from-white/10 via-white/5 to-white/10 text-white hover:from-white/20 hover:via-white/10 hover:to-white/20 px-10 md:px-12 py-5 md:py-6 text-base md:text-lg rounded-full border-2 border-white/40 overflow-hidden group-hover:border-white/60 transition-all duration-500 backdrop-blur-md shadow-2xl"
+              className="relative bg-gradient-to-r from-white/10 via-white/5 to-white/10 text-white hover:from-white/30 hover:via-white/15 hover:to-white/30 px-10 md:px-12 py-5 md:py-6 text-base md:text-lg rounded-full border-2 border-white/40 overflow-hidden group-hover:border-white/80 transition-all duration-500 backdrop-blur-md shadow-2xl hover:shadow-white/30 hover:shadow-2xl"
             >
               {/* Enhanced animated arrow icon */}
               <motion.div
