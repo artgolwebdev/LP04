@@ -14,6 +14,23 @@
     build: {
       target: 'esnext',
       outDir: 'dist',
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            motion: ['motion/react'],
+            ui: ['lucide-react', '@radix-ui/react-label', '@radix-ui/react-slot'],
+          },
+        },
+      },
+      chunkSizeWarningLimit: 1000,
     },
     base: '/LP04/',
     server: {

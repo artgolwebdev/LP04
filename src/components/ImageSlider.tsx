@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
-import { ImageWithFallback } from './figma/ImageWithFallback'
 
 const images = [
   {
