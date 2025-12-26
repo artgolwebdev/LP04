@@ -33,7 +33,7 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000,
   },
-  base: '/LP04/',
+  base: './',
   server: {
     port: 3000,
     open: true,
