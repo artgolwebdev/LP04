@@ -1,26 +1,25 @@
 import React from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion } from 'motion/react'
 import { Button } from './ui/button'
 import { Play, ArrowDown } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { LoadingScreen } from './LoadingScreen'
 
 export function HeroSection() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate loading time and hide loader
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 2500) // 2.5 seconds loading time
+    }, 1500) // Reduced to 1.5 seconds
 
     return () => clearTimeout(timer)
   }, [])
 
   const handleBookNowClick = () => {
-    // Scroll to the booking section
     const bookingSection = document.getElementById('booking-section')
     if (bookingSection) {
-      bookingSection.scrollIntoView({ 
+      bookingSection.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       })
@@ -28,10 +27,9 @@ export function HeroSection() {
   }
 
   const handleDiscoverMoreClick = () => {
-    // Scroll to the about section
     const aboutSection = document.getElementById('about-section')
     if (aboutSection) {
-      aboutSection.scrollIntoView({ 
+      aboutSection.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       })
@@ -40,372 +38,168 @@ export function HeroSection() {
 
   return (
     <>
-      {/* Loading Screen */}
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            className="fixed inset-0 z-50 bg-black flex items-center justify-center"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-          >
-            {/* Loading Content */}
-            <div className="text-center">
-              {/* DJ Logo/Icon */}
-              <motion.div
-                className="mb-8"
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-              >
-                <div className="w-24 h-24 md:w-32 md:h-32 mx-auto bg-gradient-to-br from-purple-600 via-pink-600 to-yellow-500 rounded-full flex items-center justify-center shadow-2xl">
-                  <span className="text-4xl md:text-6xl font-black text-white">DJ</span>
-                </div>
-              </motion.div>
+      <LoadingScreen isLoading={isLoading} />
 
-              {/* Loading Text */}
-              <motion.h2
-                className="text-3xl md:text-5xl font-bold text-white mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-              >
-                DJ NEXUS
-              </motion.h2>
+      <section className="relative h-screen overflow-hidden bg-black">
+        {/* Background Video/Image Container */}
+        <div className="absolute inset-0 z-0">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[10s] hover:scale-110"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1625474144048-600a7d0c27cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoaXAlMjBob3AlMjBzdHVkaW8lMjBtaWNyb3Bob25lJTIwZGFya3xlbnwxfHx8fDE3NTY0ODc1MjV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral')`,
+            }}
+          />
 
-              {/* Loading Bar */}
-              <div className="w-64 md:w-80 h-2 bg-white/20 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 rounded-full"
-                  initial={{ width: "0%" }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 2, ease: "easeInOut" }}
-                />
-              </div>
+          {/* Enhanced Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-transparent to-yellow-900/20" />
 
-              {/* Loading Dots */}
-              <motion.div
-                className="flex justify-center gap-2 mt-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              >
-                {[...Array(3)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="w-3 h-3 bg-white rounded-full"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.5, 1, 0.5]
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      delay: i * 0.2
-                    }}
-                  />
-                ))}
-              </motion.div>
+          {/* Subtle Noise Texture */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `url('https://grainy-gradients.vercel.app/noise.svg')` }} />
 
-              {/* Loading Message */}
-              <motion.p
-                className="text-white/70 mt-6 text-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-              >
-                Loading the beat...
-              </motion.p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <section className="relative h-screen overflow-hidden">
-      {/* Background Video with YouTube Reference */}
-      <div className="absolute inset-0 z-0">
-        {/* Main Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1625474144048-600a7d0c27cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoaXAlMjBob3AlMjBzdHVkaW8lMjBtaWNyb3Bob25lJTIwZGFya3xlbnwxfHx8fDE3NTY0ODc1MjV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral')`,
-          }}
-        />
-        
-        {/* Enhanced Video Overlay with DJ Theme */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80" />
-        
-        {/* Animated Grid Pattern */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(234, 179, 8, 0.3) 1px, transparent 0)`,
-            backgroundSize: '50px 50px'
-          }} />
+          {/* Animated Grid Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(234, 179, 8, 0.4) 1px, transparent 0)`,
+              backgroundSize: '40px 40px'
+            }} />
+          </div>
         </div>
-        
-        {/* Additional Visual Effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-yellow-500/10" />
-      </div>
 
-      {/* Main Content - Centered */}
-      <div className="relative z-20 flex flex-col items-center justify-center h-full px-4 max-w-6xl mx-auto text-center">
-        {/* Main Title */}
-        <motion.div
-          className="mb-12 relative"
-          initial={{ opacity: 0, y: 80, scale: 0.8 }}
-          animate={{ 
-            opacity: 1, 
-            scale: 1,
-            y: [0, -5, 0] // Subtle floating effect
-          }}
-          transition={{ 
-            duration: 1.5, 
-            delay: 0.2,
-            ease: [0.25, 0.46, 0.45, 0.94], // Custom easing curve
-            y: {
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }
-          }}
-        >
-          {/* Single DJ NEXUS Title with Grey Glow */}
-          <motion.h1 
-            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black tracking-wider leading-tight text-white mb-6 relative z-10"
-            initial={{ opacity: 0, y: 50 }}
+        {/* Main Content */}
+        <div className="relative z-20 flex flex-col items-center justify-center h-full px-4 max-w-7xl mx-auto text-center">
+          <motion.div
+            className="mb-16 relative"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          >
+            {/* Main Title with Enhanced Glow */}
+            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[11rem] font-black tracking-tighter leading-none text-white relative z-10 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+              DJ NEXUS
+            </h1>
+
+            {/* Layered Glow Effects */}
+            <motion.div
+              className="absolute inset-0 text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[11rem] font-black tracking-tighter leading-none text-purple-500/20 blur-xl"
+              animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.02, 1] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              DJ NEXUS
+            </motion.div>
+            <motion.div
+              className="absolute inset-0 text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[11rem] font-black tracking-tighter leading-none text-yellow-500/10 blur-[30px]"
+              animate={{ opacity: [0.2, 0.4, 0.2], scale: [1.02, 1, 1.02] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              DJ NEXUS
+            </motion.div>
+          </motion.div>
+
+          {/* Action Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row items-center gap-6 md:gap-10"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
           >
-            DJ NEXUS
-          </motion.h1>
-          
-          {/* Grey Glow Effect */}
-          <motion.div
-            className="absolute inset-0 text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black tracking-wider leading-tight text-gray-400/30 blur-sm"
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ 
-              opacity: [0.2, 0.4, 0.2],
-              scale: [1, 1.05, 1]
-            }}
-            transition={{ 
-              duration: 4, 
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            DJ NEXUS
-          </motion.div>
-        </motion.div>
-
-        {/* Action Buttons */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-center gap-8 md:gap-12 mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
-        >
-          {/* BOOK ME NOW Button */}
-          <motion.div
-            whileHover={{ 
-              scale: 1.05,
-              y: -5,
-              rotateY: 5
-            }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 400, 
-              damping: 25 
-            }}
-          >
-            <Button 
-              size="lg" 
-              onClick={handleBookNowClick}
-              className="relative bg-white text-black hover:bg-white/90 px-16 md:px-20 lg:px-24 py-6 md:py-8 lg:py-10 text-2xl md:text-3xl lg:text-4xl rounded-full border-4 border-white/20 overflow-hidden group-hover:border-white/60 transition-all duration-300 shadow-2xl hover:shadow-white/30 hover:shadow-3xl font-black tracking-wider"
+            {/* BOOK ME NOW Button */}
+            <motion.div
+              whileHover={{ scale: 1.03, y: -4 }}
+              whileTap={{ scale: 0.97 }}
             >
-              {/* Vinyl record spinning animation */}
-              <motion.div
-                className="absolute left-8 md:left-10 lg:left-12 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full border-4 border-black/20 flex items-center justify-center"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              <Button
+                size="lg"
+                onClick={handleBookNowClick}
+                className="relative bg-white text-black hover:bg-gray-100 px-10 sm:px-12 md:px-16 py-6 sm:py-8 md:py-10 text-lg sm:text-xl md:text-2xl rounded-full overflow-hidden transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_50px_rgba(255,255,255,0.4)] font-black tracking-tight group"
               >
-                <div className="w-3 h-3 md:w-4 md:h-4 bg-black/40 rounded-full" />
-              </motion.div>
-              
-              {/* Sound bars animation */}
-              <div className="absolute right-8 md:right-10 lg:right-12 top-1/2 -translate-y-1/2 flex gap-1">
-                {[...Array(4)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="w-1.5 md:w-2 bg-black/40 rounded-full"
-                    animate={{
-                      height: [12, 24, 12]
-                    }}
-                    transition={{
-                      duration: 0.8,
-                      repeat: Infinity,
-                      delay: i * 0.1
-                    }}
-                  />
-                ))}
-              </div>
-              
-              {/* Main text with icon */}
-              <div className="flex items-center gap-3 relative z-10">
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 1, repeat: Infinity, delay: 1.5 }}
-                >
-                  <Play className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 fill-current" />
-                </motion.div>
-                <span className="font-black tracking-wider">BOOK ME NOW</span>
-              </div>
-              
-              {/* Glowing overlay */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full"
-                animate={{
-                  x: ['0%', '200%']
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatDelay: 3
-                }}
-              />
-            </Button>
-          </motion.div>
-
-          {/* DISCOVER MORE Button */}
-          <motion.div
-            whileHover={{ 
-              scale: 1.08,
-              y: -8,
-              rotateZ: 2
-            }}
-            whileTap={{ scale: 0.92 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 300, 
-              damping: 20 
-            }}
-          >
-            <Button 
-              variant="outline"
-              size="lg" 
-              onClick={handleDiscoverMoreClick}
-              className="relative bg-gradient-to-r from-white/10 via-white/5 to-white/10 text-white hover:from-white/20 hover:via-white/10 hover:to-white/20 px-16 md:px-20 lg:px-24 py-6 md:py-8 lg:py-10 text-2xl md:text-3xl lg:text-4xl rounded-full border-2 border-white/40 overflow-hidden group-hover:border-white/60 transition-all duration-500 backdrop-blur-md shadow-2xl hover:shadow-white/30 hover:shadow-2xl font-bold tracking-widest"
-            >
-              {/* Enhanced animated arrow icon */}
-              <motion.div
-                className="absolute right-8 md:right-10 lg:right-12 top-1/2 -translate-y-1/2"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <div className="relative">
-                  <ArrowDown className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white drop-shadow-lg" />
-                  {/* Arrow glow effect */}
-                  <div className="absolute inset-0 w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-white/20 rounded-full blur-sm" />
+                <div className="flex items-center gap-3 sm:gap-4 relative z-10">
+                  <Play className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 fill-current" />
+                  <span>BOOK ME NOW</span>
                 </div>
-              </motion.div>
-              
-              {/* Enhanced main text with icon */}
-              <div className="flex items-center gap-3 relative z-10">
-                <motion.div
-                  animate={{ rotate: [0, 5, 0, -5, 0] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                >
-                  <svg className="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
-                  </svg>
-                </motion.div>
-                <span className="font-bold tracking-widest">DISCOVER MORE</span>
-              </div>
-              
-              {/* Enhanced glowing overlay */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full"
-                animate={{
-                  x: ['0%', '200%']
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  repeatDelay: 3
-                }}
-              />
-              
-              {/* Additional shine effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-transparent opacity-60"
-                animate={{
-                  opacity: [0.6, 0.2, 0.6]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity
-                }}
-              />
-            </Button>
-          </motion.div>
-        </motion.div>
 
-        {/* Floating music notes */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(8)].map((_, i) => (
+                {/* Shine Animation */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full"
+                  animate={{ x: ['100%', '-100%'] }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3, ease: "linear" }}
+                />
+              </Button>
+            </motion.div>
+
+            {/* DISCOVER MORE Button */}
+            <motion.div
+              whileHover={{ scale: 1.03, y: -4 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={handleDiscoverMoreClick}
+                className="relative bg-black/20 backdrop-blur-xl text-white hover:bg-white/10 px-10 sm:px-12 md:px-16 py-6 sm:py-8 md:py-10 text-lg sm:text-xl md:text-2xl rounded-full border-2 border-white/30 overflow-hidden transition-all duration-300 font-bold tracking-tight shadow-xl group"
+              >
+                <div className="flex items-center gap-3 sm:gap-4 relative z-10">
+                  <span>DISCOVER MORE</span>
+                  <ArrowDown className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 group-hover:translate-y-1 transition-transform" />
+                </div>
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Floating music notes - Reduced and refined */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(6)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute text-white/30 text-2xl md:text-3xl"
+              className="absolute text-white/20 text-xl md:text-2xl"
               style={{
-                left: `${10 + Math.random() * 80}%`,
-                top: `${10 + Math.random() * 80}%`,
+                left: `${15 + Math.random() * 70}%`,
+                top: `${20 + Math.random() * 60}%`,
               }}
               animate={{
-                y: [-20, -60, -20],
-                rotate: [-15, 15, -15],
-                opacity: [0, 0.8, 0]
+                y: [0, -40, 0],
+                opacity: [0, 0.5, 0],
+                scale: [0.8, 1.2, 0.8]
               }}
               transition={{
-                duration: 4,
+                duration: 5 + Math.random() * 2,
                 repeat: Infinity,
-                delay: i * 0.5
+                delay: i * 1.2,
+                ease: "easeInOut"
               }}
             >
               ♪
             </motion.div>
           ))}
         </div>
-      </div>
 
-      {/* Animated Particles Background */}
-      <div className="absolute inset-0 z-5 pointer-events-none">
-        {[...Array(40)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${1 + Math.random() * 4}px`,
-              height: `${1 + Math.random() * 4}px`,
-              background: i % 3 === 0 ? 'rgba(234, 179, 8, 0.6)' : i % 3 === 1 ? 'rgba(147, 51, 234, 0.4)' : 'rgba(255, 255, 255, 0.3)',
-            }}
-            animate={{
-              y: [-30, -150],
-              x: [0, Math.random() * 60 - 30],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 4,
-              ease: "easeOut",
-            }}
-          />
-        ))}
-      </div>
-    </section>
+        {/* Particles refined */}
+        <div className="absolute inset-0 z-5 pointer-events-none">
+          {[...Array(25)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: `${1 + Math.random() * 2}px`,
+                height: `${1 + Math.random() * 2}px`,
+                background: i % 2 === 0 ? 'rgba(234, 179, 8, 0.4)' : 'rgba(255, 255, 255, 0.2)',
+              }}
+              animate={{
+                y: [0, -100],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: 4 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            />
+          ))}
+        </div>
+      </section>
     </>
   )
 }

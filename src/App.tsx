@@ -1,3 +1,4 @@
+import { Navbar } from './components/Navbar'
 import { HeroSection } from './components/HeroSection'
 import { MusicSection } from './components/MusicSection'
 import { ImageSlider } from './components/ImageSlider'
@@ -8,7 +9,8 @@ import { Footer } from './components/Footer'
 
 export default function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
+      <Navbar />
       <HeroSection />
       <MusicSection />
       <ImageSlider />

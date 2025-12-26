@@ -30,11 +30,11 @@ export function ImageSlider() {
     target: containerRef,
     offset: ['start end', 'end start']
   })
-  
+
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '-50%'])
 
   return (
-    <section ref={containerRef} className="py-20 bg-black text-white overflow-hidden">
+    <section id="slider-section" ref={containerRef} className="py-20 bg-black text-white overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.h2
           className="text-4xl md:text-6xl font-black text-center mb-16"
@@ -45,8 +45,8 @@ export function ImageSlider() {
         >
           PAST GIGS
         </motion.h2>
-        
-        <motion.div 
+
+        <motion.div
           className="flex gap-8 w-[200%]"
           style={{ x }}
         >
@@ -57,7 +57,7 @@ export function ImageSlider() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div 
+              <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url(${image.url})` }}
               />

@@ -4,21 +4,20 @@ Professional DJ landing page built with React, TypeScript, and Tailwind CSS.
 
 ## Features
 
-- Modern, responsive design
-- Smooth animations with Framer Motion
-- Music player integration (SoundCloud)
-- Contact and booking forms
-- SEO optimized
-- Performance optimized
+- **Premium Aesthetics**: Consistent dark theme with glassmorphism, glowing effects, and high-quality visuals.
+- **Mobile Optimized**: Fully responsive design with a dedicated mobile navigation menu and optimized touch targets.
+- **Micro-interactions**: Smooth scroll-triggered animations and interactive elements throughout the page.
+- **Performance**: Ultra-lightweight with Tailwind CSS 4 and optimized assets.
+- **Smooth Navigation**: Integrated header with smart scrolling to sections.
 
 ## Tech Stack
 
-- React 18
-- TypeScript
-- Vite
-- Tailwind CSS
-- Framer Motion
-- Lucide React Icons
+- **React 18**
+- **TypeScript**
+- **Vite 6**
+- **Tailwind CSS 4**
+- **Framer Motion** (via `motion/react`)
+- **Lucide React Icons**
 
 ## Quick Start
 
